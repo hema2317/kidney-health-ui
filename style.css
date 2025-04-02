@@ -101,3 +101,29 @@ button:hover {
     padding: 8px;
   }
 }
+.tooltip {
+  display: inline-block;
+  position: relative;
+  cursor: help;
+  margin-left: 6px;
+  font-size: 0.9em;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 180px;
+  background-color: #333;
+  color: #fff;
+  text-align: left;
+  border-radius: 6px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 105%;
+  font-size: 0.85em;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
