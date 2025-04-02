@@ -3,40 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kidney Health Risk Predictor</title>
+  <title>V2 Health - Kidney Risk</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
-  <h1>🩺 Kidney Health Risk Predictor</h1>
+  <header style="text-align:center; margin-bottom: 20px;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/V2_logo_icon.png/600px-V2_logo_icon.png" alt="V2 Health" width="60" style="margin-bottom: 10px;" />
+    <h1 style="color: #2e5aac;">V2 Kidney Health Risk Predictor</h1>
+  </header>
 
   <form id="predictForm">
-    <label>HbA1c: <input type="number" name="hba1c" step="0.1" required /></label><br />
-    <label>Albumin: <input type="number" name="albumin" required /></label><br />
-    <label>Urine Creatinine: <input type="number" name="creatinine" step="0.1" required /></label><br />
-    <label>eGFR: <input type="number" name="egfr" required /></label><br />
-    <label>Age: <input type="number" name="age" required /></label><br />
+    <label>HbA1c (%)
+      <input type="number" name="hba1c" step="0.1" required />
+      <span class="tooltip">❓<span class="tooltiptext">Average blood sugar over 3 months</span></span>
+    </label>
+
+    <label>Albumin (mg/dL)
+      <input type="number" name="albumin" required />
+      <span class="tooltip">❓<span class="tooltiptext">Protein in your urine</span></span>
+    </label>
+
+    <label>Urine Creatinine (mg/kg/day)
+      <input type="number" name="creatinine" step="0.1" required />
+      <span class="tooltip">❓<span class="tooltiptext">Normal: M 14–26, F 11–20</span></span>
+    </label>
+
+    <label>eGFR (mL/min/1.73m²)
+      <input type="number" name="egfr" required />
+      <span class="tooltip">❓<span class="tooltiptext">Estimated kidney filtration rate</span></span>
+    </label>
+
+    <label>Age (years)
+      <input type="number" name="age" required />
+    </label>
+
     <label>Sex:
       <select name="sex">
         <option value="male">Male</option>
         <option value="female">Female</option>
       </select>
-    </label><br /><br />
+    </label>
 
-    <button type="submit">Predict Risk</button>
+    <button type="submit">🔍 Predict My Kidney Risk</button>
   </form>
 
-  <p id="result" style="font-weight: bold;"></p>
-
-  <!-- 🔴🟠🟢 Color bar for risk level -->
-  <div id="riskBar" style="width: 100%; height: 20px; margin-top: 10px;"></div>
-
-  <!-- Suggestions -->
-  <p id="patientNote" style="margin-top: 20px; font-weight: bold;"></p>
-  <p id="doctorNote" style="font-style: italic; color: #555;"></p>
-
-  <!-- 🧾 PDF Button -->
-  <button id="downloadBtn" style="display:none;">Download PDF</button>
+  <!-- 📄 Result summary -->
+  <div id="summaryBox" style="display:none;">
+    <p id="result" style="font-weight: bold;"></p>
+    <div id="riskBar"></div>
+    <p id="patientNote"></p>
+    <p id="doctorNote"></p>
+    <button id="downloadBtn">📄 Download Report</button>
+  </div>
 
   <script src="script.js"></script>
 </body>
