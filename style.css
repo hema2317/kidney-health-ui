@@ -1,0 +1,21 @@
+﻿body {
+  font-family: sans-serif;
+  background: #e0f7fa;
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+.container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+input, select, button {
+  margin: 5px 0;
+  padding: 8px;
+  width: 100%;
+}
+#result {
+  margin-top: 20px;
+  font-weight: bold;
+}

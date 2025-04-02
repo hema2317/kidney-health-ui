@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kidney Health AI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>🧠 Kidney Health AI</h1>
+    <form id="predictForm">
+      <input type="number" placeholder="HbA1c" name="hba1c" required />
+      <input type="number" placeholder="Albumin" name="albumin" required />
+      <input type="number" placeholder="Creatinine" name="creatinine" required />
+      <input type="number" placeholder="eGFR" name="egfr" required />
+      <input type="number" placeholder="Age" name="age" required />
+      <select name="sex">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+      <button type="submit">Check Risk</button>
+    </form>
+    <div id="result"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
