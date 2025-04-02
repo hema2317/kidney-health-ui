@@ -8,10 +8,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
-
-  <h1 style="color: #2e5aac; text-align:center; margin-bottom: 20px;">
-    V2 Kidney Health Risk Predictor
-  </h1>
+  <header style="text-align:center; margin-bottom: 20px;">
+    <h1 style="color: #2e5aac;">V2 Kidney Health Risk Predictor</h1>
+    <button id="connectCGM" style="background:#2e5aac;color:white;padding:10px 15px;border:none;border-radius:5px;margin-top:10px;">🔗 Connect to CGM Device</button>
+  </header>
 
   <form id="predictForm">
     <label>HbA1c (%) ❓
@@ -48,6 +48,7 @@
     <button type="submit">🔍 Predict My Kidney Risk</button>
   </form>
 
+  <!-- 📄 Result summary -->
   <div id="summaryBox" style="display:none;">
     <p id="result" style="font-weight: bold;"></p>
     <div id="riskBar"></div>
