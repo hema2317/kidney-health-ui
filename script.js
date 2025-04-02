@@ -13,13 +13,7 @@ document.getElementById("predictForm").addEventListener("submit", async function
   const result = await res.json();
   document.getElementById("result").innerText = "Risk Level: " + result.risk;
 
-  // Color bar update
   const riskBar = document.getElementById("riskBar");
-  riskBar.style.height = "30px";
-  riskBar.style.borderRadius = "5px";
-  riskBar.style.marginTop = "10px";
-
-  // Suggestions
   const patientNote = document.getElementById("patientNote");
   const doctorNote = document.getElementById("doctorNote");
 
@@ -34,10 +28,4 @@ document.getElementById("predictForm").addEventListener("submit", async function
   } else if (result.risk === "High") {
     riskBar.style.backgroundColor = "red";
     patientNote.innerText = "❗ See your doctor immediately.";
-    doctorNote.innerText = "🚨 Urgent: Order labs (ACR, GFR, BP logs). Adjust medications.";
-  } else {
-    riskBar.style.backgroundColor = "gray";
-    patientNote.innerText = "";
-    doctorNote.innerText = "";
-  }
-});
+    doctorNote.innerText = "🚨 Urgent: Order labs (
