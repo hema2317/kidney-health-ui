@@ -11,25 +11,19 @@ document.getElementById("predictForm").addEventListener("submit", async function
   });
 
   const result = await res.json();
-  const risk = result.risk;
 
-  let patientTip = "";
-  let doctorNote = "";
+  document.getElementById("result").innerText = "Risk Level: " + result.risk;
 
-  if (risk === "Low") {
-    patientTip = "🎉 Keep up your healthy lifestyle. Monitor regularly.";
-    doctorNote = "🩺 Reassess in 6–12 months.";
-  } else if (risk === "Moderate") {
-    patientTip = "⚠️ Visit a doctor for kidney checkup and lifestyle review.";
-    doctorNote = "🧪 Order labs: ACR, GFR, BP logs. Adjust medications.";
-  } else {
-    patientTip = "🚨 Urgent: Visit a specialist. Immediate kidney attention needed.";
-    doctorNote = "📋 Refer to nephrology. Review anemia, BP, diabetes, and imaging.";
+  // Update Risk Bar
+  const bar = document.getElementById("riskBar");
+  if (result.risk === "Low") {
+    bar.style.width = "33%";
+    bar.style.backgroundColor = "green";
+  } else if (result.risk === "Moderate") {
+    bar.style.width = "66%";
+    bar.style.backgroundColor = "orange";
+  } else if (result.risk === "High") {
+    bar.style.width = "100%";
+    bar.style.backgroundColor = "red";
   }
-
-  document.getElementById("result").innerHTML = `
-    <p><strong>Risk Level:</strong> ${risk}</p>
-    <p><strong>Next Step (Patient):</strong> ${patientTip}</p>
-    <p><strong>Doctor's Note:</strong> ${doctorNote}</p>
-  `;
 });
