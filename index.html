@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kidney Health Risk Predictor</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
   <h1>🩺 Kidney Health Risk Predictor</h1>
@@ -12,7 +13,7 @@
   <form id="predictForm">
     <label>HbA1c: <input type="number" name="hba1c" step="0.1" required /></label><br />
     <label>Albumin: <input type="number" name="albumin" required /></label><br />
-    <label>Creatinine: <input type="number" name="creatinine" required /></label><br />
+    <label>Urine Creatinine: <input type="number" name="creatinine" step="0.1" required /></label><br />
     <label>eGFR: <input type="number" name="egfr" required /></label><br />
     <label>Age: <input type="number" name="age" required /></label><br />
     <label>Sex:
@@ -30,9 +31,12 @@
   <!-- 🔴🟠🟢 Color bar for risk level -->
   <div id="riskBar" style="width: 100%; height: 20px; margin-top: 10px;"></div>
 
-  <!-- 👨‍⚕️ Suggestions -->
+  <!-- Suggestions -->
   <p id="patientNote" style="margin-top: 20px; font-weight: bold;"></p>
   <p id="doctorNote" style="font-style: italic; color: #555;"></p>
+
+  <!-- 🧾 PDF Button -->
+  <button id="downloadBtn" style="display:none;">Download PDF</button>
 
   <script src="script.js"></script>
 </body>
