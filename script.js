@@ -73,7 +73,7 @@ document.getElementById("downloadBtn").addEventListener("click", () => {
 
 // ✅ Dexcom OAuth: Connect to CGM
 document.getElementById("connectCGM").addEventListener("click", () => {
-  const clientId = "YOUR_CLIENT_ID";  // replace with actual Client ID from Dexcom
+const clientId = "EjJmOsxReUCm2GojkJ37SoF3E0WnLu5";
   const redirectUri = "https://kidney-health-ui.vercel.app/cgm-callback";
   const responseType = "code";
   const scope = "offline_access CGM";  // adjust scope as required
