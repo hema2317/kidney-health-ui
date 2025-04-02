@@ -78,8 +78,7 @@ const clientId = "EjJmOsxReUCm2GojkJ37SoF3E0WnLu5";  // this must match your Dex
   const responseType = "code";
   const scope = "offline_access CGM";  // adjust scope as required
   const state = "abc123";  // You can randomize this if needed
-
-  const authUrl = `https://sandbox-api.dexcom.com/v2/oauth2/login?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}&state=${state}`;
+const authUrl = `https://sandbox-api.dexcom.com/v2/oauth2/login?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=offline_access CGM&state=abc123`;
   
   window.location.href = authUrl;
 });
