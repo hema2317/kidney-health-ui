@@ -11,19 +11,33 @@ document.getElementById("predictForm").addEventListener("submit", async function
   });
 
   const result = await res.json();
-
   document.getElementById("result").innerText = "Risk Level: " + result.risk;
 
-  // Update Risk Bar
-  const bar = document.getElementById("riskBar");
+  // Color bar update
+  const riskBar = document.getElementById("riskBar");
+  riskBar.style.height = "30px";
+  riskBar.style.borderRadius = "5px";
+  riskBar.style.marginTop = "10px";
+
+  // Suggestions
+  const patientNote = document.getElementById("patientNote");
+  const doctorNote = document.getElementById("doctorNote");
+
   if (result.risk === "Low") {
-    bar.style.width = "33%";
-    bar.style.backgroundColor = "green";
+    riskBar.style.backgroundColor = "green";
+    patientNote.innerText = "✅ Keep up your healthy habits!";
+    doctorNote.innerText = "👍 No urgent action needed. Continue monitoring.";
   } else if (result.risk === "Moderate") {
-    bar.style.width = "66%";
-    bar.style.backgroundColor = "orange";
+    riskBar.style.backgroundColor = "orange";
+    patientNote.innerText = "⚠️ Consider lifestyle improvements. Follow up recommended.";
+    doctorNote.innerText = "🧪 Monitor kidney function more frequently. Consider further testing.";
   } else if (result.risk === "High") {
-    bar.style.width = "100%";
-    bar.style.backgroundColor = "red";
+    riskBar.style.backgroundColor = "red";
+    patientNote.innerText = "❗ See your doctor immediately.";
+    doctorNote.innerText = "🚨 Urgent: Order labs (ACR, GFR, BP logs). Adjust medications.";
+  } else {
+    riskBar.style.backgroundColor = "gray";
+    patientNote.innerText = "";
+    doctorNote.innerText = "";
   }
 });
