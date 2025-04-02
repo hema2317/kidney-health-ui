@@ -1,21 +1,24 @@
-﻿body {
+body {
   font-family: sans-serif;
-  background: #e0f7fa;
-  display: flex;
-  justify-content: center;
-  padding-top: 50px;
+  padding: 2rem;
+  background: #f7faff;
 }
-.container {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
+h1 {
+  color: #2b7a78;
 }
-input, select, button {
-  margin: 5px 0;
-  padding: 8px;
-  width: 100%;
+form input, form select, button {
+  display: block;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  width: 250px;
+}
+button {
+  background-color: #3d5a80;
+  color: white;
+  border: none;
+  cursor: pointer;
 }
 #result {
-  margin-top: 20px;
+  margin-top: 1rem;
   font-weight: bold;
 }
