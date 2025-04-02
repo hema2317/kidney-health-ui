@@ -1,6 +1,8 @@
 document.getElementById("predictForm").addEventListener("submit", async function (e) {
   e.preventDefault();
 
+  console.log("🔍 Form submitted");
+
   const data = {
     hba1c: parseFloat(this.hba1c.value),
     albumin: parseFloat(this.albumin.value),
@@ -10,39 +12,55 @@ document.getElementById("predictForm").addEventListener("submit", async function
     sex: this.sex.value
   };
 
-  const res = await fetch("https://kidney-health-api.onrender.com/predict", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  });
+  console.log("📦 Sending data:", data);
 
-  const result = await res.json();
-  document.getElementById("result").innerText = "Risk Level: " + result.risk;
+  try {
+    const res = await fetch("https://kidney-health-api.onrender.com/predict", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
 
-  const riskBar = document.getElementById("riskBar");
-  const patientNote = document.getElementById("patientNote");
-  const doctorNote = document.getElementById("doctorNote");
+    if (!res.ok) {
+      console.error("❌ Fetch failed:", res.status, res.statusText);
+      alert("Something went wrong. Please try again later.");
+      return;
+    }
 
-  if (result.risk === "Low") {
-    riskBar.style.backgroundColor = "green";
-    patientNote.innerText = "✅ Keep up your healthy habits!";
-    doctorNote.innerText = "👍 No urgent action needed. Continue monitoring.";
-  } else if (result.risk === "Moderate") {
-    riskBar.style.backgroundColor = "orange";
-    patientNote.innerText = "⚠️ Consider lifestyle improvements. Follow up recommended.";
-    doctorNote.innerText = "🧪 Monitor kidney function more frequently. Consider further testing.";
-  } else if (result.risk === "High") {
-    riskBar.style.backgroundColor = "red";
-    patientNote.innerText = "❗ See your doctor immediately.";
-    doctorNote.innerText = "🚨 Urgent: Order labs (ACR, GFR, BP logs). Adjust medications.";
-  } else {
-    riskBar.style.backgroundColor = "gray";
-    patientNote.innerText = "";
-    doctorNote.innerText = "";
+    const result = await res.json();
+    console.log("✅ Prediction result:", result);
+
+    document.getElementById("result").innerText = "Risk Level: " + result.risk;
+
+    const riskBar = document.getElementById("riskBar");
+    const patientNote = document.getElementById("patientNote");
+    const doctorNote = document.getElementById("doctorNote");
+
+    if (result.risk === "Low") {
+      riskBar.style.backgroundColor = "green";
+      patientNote.innerText = "✅ Keep up your healthy habits!";
+      doctorNote.innerText = "👍 No urgent action needed. Continue monitoring.";
+    } else if (result.risk === "Moderate") {
+      riskBar.style.backgroundColor = "orange";
+      patientNote.innerText = "⚠️ Consider lifestyle improvements. Follow up recommended.";
+      doctorNote.innerText = "🧪 Monitor kidney function more frequently. Consider further testing.";
+    } else if (result.risk === "High") {
+      riskBar.style.backgroundColor = "red";
+      patientNote.innerText = "❗ See your doctor immediately.";
+      doctorNote.innerText = "🚨 Urgent: Order labs (ACR, GFR, BP logs). Adjust medications.";
+    } else {
+      riskBar.style.backgroundColor = "gray";
+      patientNote.innerText = "Unknown result.";
+      doctorNote.innerText = "";
+    }
+
+    document.getElementById("summaryBox").style.display = "block";
+    document.getElementById("downloadBtn").style.display = "inline-block";
+
+  } catch (err) {
+    console.error("❌ Error while predicting:", err);
+    alert("Error: " + err.message);
   }
-
-  // ✅ Show PDF button
-  document.getElementById("downloadBtn").style.display = "inline-block";
 });
 
 // 🧾 PDF Download Logic
@@ -59,8 +77,8 @@ document.getElementById("downloadBtn").addEventListener("click", () => {
   doc.setFontSize(12);
   doc.text(`Date: ${new Date().toLocaleString()}`, 20, 30);
   doc.text(`Risk Level: ${risk}`, 20, 45);
-  doc.text(`\nPatient Suggestion: ${patientNote}`, 20, 60);
-  doc.text(`\nDoctor Guidance: ${doctorNote}`, 20, 80);
+  doc.text(`Patient Suggestion: ${patientNote}`, 20, 60);
+  doc.text(`Doctor Guidance: ${doctorNote}`, 20, 80);
 
   doc.save("KidneyHealthReport.pdf");
 });
