@@ -1,129 +1,93 @@
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f7f9fa;
-  color: #333;
-  padding: 20px;
-  margin: 0;
-  max-width: 600px;
-  margin: auto;
-}
-
-h1 {
-  text-align: center;
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
   color: #2e5aac;
-  font-size: 1.8rem;
+  font-size: 18px;
+  padding-left: 5px;
 }
 
-form {
-  background-color: #ffffff;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.05);
-  margin-bottom: 20px;
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position above the text */
+  left: 50%;
+  margin-left: -80px; /* Center the tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Adjusting the tooltip text size */
+.tooltiptext {
+  font-size: 14px;
+}
+
+/* Ensuring input fields and labels align well */
 label {
   display: block;
-  margin-bottom: 12px;
-  font-size: 1rem;
+  margin-bottom: 10px;
 }
 
-input,
-select,
-button {
+input, select {
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 10px;
   width: 100%;
-  padding: 10px;
-  margin-top: 4px;
-  margin-bottom: 16px;
   border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
+  border-radius: 5px;
 }
 
 button {
   background-color: #2e5aac;
   color: white;
+  padding: 10px 20px;
   border: none;
+  border-radius: 5px;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #204b9c;
+  background-color: #1f449f;
 }
 
-#result {
-  font-size: 1.2rem;
-  text-align: center;
-  margin-top: 10px;
+/* For question marks, positioning them beside input fields */
+label .tooltip {
+  position: relative;
+  display: inline-block;
+  margin-left: 10px; /* Space between input and tooltip */
+  font-size: 20px;
 }
 
-#riskBar {
-  height: 15px;
-  border-radius: 10px;
-  margin: 15px 0;
-  transition: background-color 0.5s ease;
-}
-
-#patientNote {
-  background: #e0f7e0;
-  padding: 10px;
-  border-radius: 8px;
-  font-weight: bold;
-}
-
-#doctorNote {
-  background: #fff4e0;
-  padding: 10px;
-  border-radius: 8px;
-  font-style: italic;
-  color: #555;
-  margin-top: 10px;
-}
-
-/* Mobile-first responsive tweaks */
-@media (max-width: 480px) {
+/* Responsive Design */
+@media (max-width: 600px) {
   body {
-    padding: 15px;
-  }
-
-  h1 {
-    font-size: 1.5rem;
+    font-size: 14px;
   }
 
   label {
-    font-size: 0.95rem;
+    font-size: 16px;
   }
 
-  input, select, button {
-    font-size: 0.95rem;
-    padding: 8px;
+  .tooltip .tooltiptext {
+    width: 120px;
+    font-size: 12px;
   }
-}
-.tooltip {
-  display: inline-block;
-  position: relative;
-  cursor: help;
-  margin-left: 6px;
-  font-size: 0.9em;
-}
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 180px;
-  background-color: #333;
-  color: #fff;
-  text-align: left;
-  border-radius: 6px;
-  padding: 8px;
-  position: absolute;
-  z-index: 1;
-  top: -5px;
-  left: 105%;
-  font-size: 0.85em;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
+  button {
+    width: 100%;
+    padding: 12px;
+  }
 }
