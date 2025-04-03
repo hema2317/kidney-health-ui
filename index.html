@@ -9,29 +9,29 @@
 </head>
 <body>
   <header style="text-align:center; margin-bottom: 20px;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/V2_logo_icon.png/600px-V2_logo_icon.png" alt="V2 Health" width="60" style="margin-bottom: 10px;" />
     <h1 style="color: #2e5aac;">V2 Kidney Health Risk Predictor</h1>
-    <button id="connectCGM" style="background:#2e5aac;color:white;padding:10px 15px;border:none;border-radius:5px;margin-top:10px;">🔗 Connect to CGM Device</button>
   </header>
 
   <form id="predictForm">
-    <label>HbA1c (%) ❓
+    <label>HbA1c (%)
       <input type="number" name="hba1c" step="0.1" required />
-      <span class="tooltiptext">Average blood sugar over 3 months</span>
+      <span class="tooltip">❓<span class="tooltiptext">Average blood sugar over 3 months</span></span>
     </label>
 
-    <label>Albumin (mg/dL) ❓
+    <label>Albumin (mg/dL)
       <input type="number" name="albumin" required />
-      <span class="tooltiptext">Protein in your urine</span>
+      <span class="tooltip">❓<span class="tooltiptext">Protein in your urine</span></span>
     </label>
 
-    <label>Urine Creatinine (mg/kg/day) ❓
+    <label>Urine Creatinine (mg/kg/day)
       <input type="number" name="creatinine" step="0.1" required />
-      <span class="tooltiptext">Normal: M 14–26, F 11–20</span>
+      <span class="tooltip">❓<span class="tooltiptext">Normal: M 14–26, F 11–20</span></span>
     </label>
 
-    <label>eGFR (mL/min/1.73m²) ❓
+    <label>eGFR (mL/min/1.73m²)
       <input type="number" name="egfr" required />
-      <span class="tooltiptext">Estimated kidney filtration rate</span>
+      <span class="tooltip">❓<span class="tooltiptext">Estimated kidney filtration rate</span></span>
     </label>
 
     <label>Age (years)
