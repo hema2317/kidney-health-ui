@@ -10,7 +10,7 @@ document.getElementById("predictForm").addEventListener("submit", async function
     sex: this.sex.value
   };
 
-  console.log("📤 Submitting this data to backend:", data);
+  console.log("🔍 Sending data to backend:", data); // ✅ Debug log
 
   try {
     const res = await fetch("https://kidney-health-api.onrender.com/predict", {
@@ -20,7 +20,11 @@ document.getElementById("predictForm").addEventListener("submit", async function
     });
 
     const result = await res.json();
-    console.log("✅ Received prediction result:", result);
+    console.log("✅ Received response:", result); // ✅ Debug log
+
+    if (!result || !result.risk) {
+      throw new Error("Invalid response or missing 'risk' field");
+    }
 
     document.getElementById("summaryBox").style.display = "block";
     document.getElementById("result").innerText = "Risk Level: " + result.risk;
@@ -35,8 +39,8 @@ document.getElementById("predictForm").addEventListener("submit", async function
       doctorNote.innerText = "👍 No urgent action needed. Continue monitoring.";
     } else if (result.risk === "Moderate") {
       riskBar.style.backgroundColor = "orange";
-      patientNote.innerText = "⚠️ Consider lifestyle improvements.";
-      doctorNote.innerText = "🧪 Monitor kidney function. Recommend follow-up labs.";
+      patientNote.innerText = "⚠️ Consider lifestyle improvements. Follow up recommended.";
+      doctorNote.innerText = "🧪 Monitor kidney function more frequently. Consider further testing.";
     } else if (result.risk === "High") {
       riskBar.style.backgroundColor = "red";
       patientNote.innerText = "❗ See your doctor immediately.";
@@ -47,16 +51,13 @@ document.getElementById("predictForm").addEventListener("submit", async function
       doctorNote.innerText = "";
     }
 
-    // ✅ Show PDF button
     document.getElementById("downloadBtn").style.display = "inline-block";
-
   } catch (error) {
-    console.error("❌ Error during prediction:", error);
-    alert("Something went wrong while predicting kidney risk. Please try again later.");
+    console.error("❌ Prediction failed:", error); // ❌ Log error
+    alert("Something went wrong while predicting kidney risk. Please try again.");
   }
 });
 
-// 🧾 PDF Download Logic
 document.getElementById("downloadBtn").addEventListener("click", () => {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
@@ -70,8 +71,8 @@ document.getElementById("downloadBtn").addEventListener("click", () => {
   doc.setFontSize(12);
   doc.text(`Date: ${new Date().toLocaleString()}`, 20, 30);
   doc.text(`Risk Level: ${risk}`, 20, 45);
-  doc.text(`Patient Suggestion: ${patientNote}`, 20, 60);
-  doc.text(`Doctor Guidance: ${doctorNote}`, 20, 75);
+  doc.text(`\nPatient Suggestion: ${patientNote}`, 20, 60);
+  doc.text(`\nDoctor Guidance: ${doctorNote}`, 20, 80);
 
   doc.save("KidneyHealthReport.pdf");
 });
