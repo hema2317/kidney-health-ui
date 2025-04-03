@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>V2 Kidney Health Risk Predictor</title>
+  <title>V2 Kidney Health Predictor</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
@@ -12,67 +12,61 @@
     <h1>V2 Kidney Health Risk Predictor</h1>
   </header>
 
-  <form id="predictForm" class="form-container">
-    <div class="input-group">
-      <label>HbA1c (%) 
-        <span class="tooltip">❓
-          <span class="tooltiptext">Avg blood sugar over 3 months. Normal: 4–5.6%</span>
-        </span>
-      </label>
-      <input type="number" step="0.1" name="hba1c" required />
+  <main>
+    <form id="predictForm" class="form-container">
+      <div class="input-group">
+        <label>HbA1c (%) <span class="tooltip">❓
+          <span class="tooltiptext">Avg blood sugar over 3 months. Normal: 4–5.6%</span></span>
+        </label>
+        <input type="number" name="hba1c" step="0.1" required />
+      </div>
+
+      <div class="input-group">
+        <label>Albumin (mg/dL) <span class="tooltip">❓
+          <span class="tooltiptext">Protein in urine. Normal: &lt; 30 mg/dL</span></span>
+        </label>
+        <input type="number" name="albumin" required />
+      </div>
+
+      <div class="input-group">
+        <label>Urine Creatinine (mg/kg/day) <span class="tooltip">❓
+          <span class="tooltiptext">Normal: Male 14–26, Female 11–20</span></span>
+        </label>
+        <input type="number" name="creatinine" step="0.1" required />
+      </div>
+
+      <div class="input-group">
+        <label>eGFR (mL/min/1.73m²) <span class="tooltip">❓
+          <span class="tooltiptext">Kidney filtration rate. Normal: &gt; 90</span></span>
+        </label>
+        <input type="number" name="egfr" required />
+      </div>
+
+      <div class="input-group">
+        <label>Age (years)</label>
+        <input type="number" name="age" required />
+      </div>
+
+      <div class="input-group">
+        <label>Sex:
+          <select name="sex">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </label>
+      </div>
+
+      <button type="submit">🔍 Predict My Kidney Risk</button>
+    </form>
+
+    <div id="summaryBox" style="display: none;">
+      <p id="result" style="font-weight: bold;"></p>
+      <div id="riskBar"></div>
+      <p id="patientNote"></p>
+      <p id="doctorNote"></p>
+      <button id="downloadBtn">📄 Download Report</button>
     </div>
-
-    <div class="input-group">
-      <label>Albumin (mg/dL) 
-        <span class="tooltip">❓
-          <span class="tooltiptext">Protein in urine. Normal: &lt; 30 mg/dL</span>
-        </span>
-      </label>
-      <input type="number" name="albumin" required />
-    </div>
-
-    <div class="input-group">
-      <label>Urine Creatinine (mg/kg/day) 
-        <span class="tooltip">❓
-          <span class="tooltiptext">Normal: Male 14–26, Female 11–20</span>
-        </span>
-      </label>
-      <input type="number" step="0.1" name="creatinine" required />
-    </div>
-
-    <div class="input-group">
-      <label>eGFR (mL/min/1.73m²) 
-        <span class="tooltip">❓
-          <span class="tooltiptext">Kidney filtration rate. Normal: &gt;90</span>
-        </span>
-      </label>
-      <input type="number" name="egfr" required />
-    </div>
-
-    <div class="input-group">
-      <label>Age (years)</label>
-      <input type="number" name="age" required />
-    </div>
-
-    <div class="input-group">
-      <label>Sex:
-        <select name="sex" required>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-      </label>
-    </div>
-
-    <button type="submit">🔍 Predict My Kidney Risk</button>
-  </form>
-
-  <div id="summaryBox" style="display:none;">
-    <p id="result" style="font-weight: bold;"></p>
-    <div id="riskBar"></div>
-    <p id="patientNote"></p>
-    <p id="doctorNote"></p>
-    <button id="downloadBtn">📄 Download Report</button>
-  </div>
+  </main>
 
   <script src="script.js"></script>
 </body>
