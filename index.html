@@ -1,43 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>V2 Kidney Health Risk Predictor</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
 <body>
   <header>
     <h1>V2 Kidney Health Risk Predictor</h1>
   </header>
 
-  <form id="predictForm" class="form-box">
-    <label for="hba1c">HbA1c (%):</label>
-    <input type="number" id="hba1c" name="hba1c" step="0.1" required />
+  <form id="predictForm" class="form-container">
+    <div class="form-group">
+      <label for="hba1c">
+        HbA1c (%) 
+        <span class="tooltip">❓
+          <span class="tooltiptext">Avg blood sugar over 3 months. Normal: 4–5.6%</span>
+        </span>
+      </label>
+      <input type="number" id="hba1c" name="hba1c" step="0.1" required />
+    </div>
 
-    <label for="albumin">Albumin (mg/dL):</label>
-    <input type="number" id="albumin" name="albumin" required />
+    <div class="form-group">
+      <label for="albumin">
+        Albumin (mg/dL)
+        <span class="tooltip">❓
+          <span class="tooltiptext">Protein in urine. Normal: &lt; 30 mg/dL</span>
+        </span>
+      </label>
+      <input type="number" id="albumin" name="albumin" required />
+    </div>
 
-    <label for="creatinine">Urine Creatinine (mg/kg/day):</label>
-    <input type="number" id="creatinine" name="creatinine" step="0.1" required />
+    <div class="form-group">
+      <label for="creatinine">
+        Urine Creatinine (mg/kg/day)
+        <span class="tooltip">❓
+          <span class="tooltiptext">Normal: Male 14–26, Female 11–20</span>
+        </span>
+      </label>
+      <input type="number" id="creatinine" name="creatinine" step="0.1" required />
+    </div>
 
-    <label for="egfr">eGFR (mL/min/1.73m²):</label>
-    <input type="number" id="egfr" name="egfr" required />
+    <div class="form-group">
+      <label for="egfr">
+        eGFR (mL/min/1.73m²)
+        <span class="tooltip">❓
+          <span class="tooltiptext">Kidney filtration rate. Normal: &gt;90</span>
+        </span>
+      </label>
+      <input type="number" id="egfr" name="egfr" required />
+    </div>
 
-    <label for="age">Age (years):</label>
-    <input type="number" id="age" name="age" required />
+    <div class="form-group">
+      <label for="age">Age (years)</label>
+      <input type="number" id="age" name="age" required />
+    </div>
 
-    <label for="sex">Sex:</label>
-    <select name="sex" id="sex">
-      <option value="male">Male</option>
-      <option value="female">Female</option>
-    </select>
+    <div class="form-group">
+      <label for="sex">Sex:</label>
+      <select id="sex" name="sex">
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </div>
 
     <button type="submit">🔍 Predict My Kidney Risk</button>
   </form>
 
   <div id="summaryBox" style="display:none;">
-    <p id="result"></p>
+    <p id="result" style="font-weight: bold;"></p>
     <div id="riskBar"></div>
     <p id="patientNote"></p>
     <p id="doctorNote"></p>
@@ -46,4 +70,3 @@
 
   <script src="script.js"></script>
 </body>
-</html>
