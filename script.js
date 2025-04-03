@@ -7,47 +7,42 @@ document.getElementById("predictForm").addEventListener("submit", async function
     creatinine: parseFloat(this.creatinine.value),
     egfr: parseFloat(this.egfr.value),
     age: parseInt(this.age.value),
-    sex: this.sex.value,
+    sex: this.sex.value
   };
 
-  try {
-    const res = await fetch("https://kidney-health-api.onrender.com/predict", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
+  const res = await fetch("https://kidney-health-api.onrender.com/predict", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
 
-    const result = await res.json();
-    document.getElementById("result").innerText = "Risk Level: " + result.risk;
+  const result = await res.json();
+  document.getElementById("result").innerText = "Risk Level: " + result.risk;
 
-    const riskBar = document.getElementById("riskBar");
-    const patientNote = document.getElementById("patientNote");
-    const doctorNote = document.getElementById("doctorNote");
+  const riskBar = document.getElementById("riskBar");
+  const patientNote = document.getElementById("patientNote");
+  const doctorNote = document.getElementById("doctorNote");
 
-    if (result.risk === "Low") {
-      riskBar.style.backgroundColor = "green";
-      patientNote.innerText = "✅ Keep up your healthy habits!";
-      doctorNote.innerText = "👍 No urgent action needed. Continue monitoring.";
-    } else if (result.risk === "Moderate") {
-      riskBar.style.backgroundColor = "orange";
-      patientNote.innerText = "⚠️ Consider lifestyle improvements.";
-      doctorNote.innerText = "🧪 Monitor kidney function. Recommend follow-up labs.";
-    } else if (result.risk === "High") {
-      riskBar.style.backgroundColor = "red";
-      patientNote.innerText = "❗ See your doctor immediately.";
-      doctorNote.innerText = "🚨 Urgent: Order labs. Adjust medications as needed.";
-    } else {
-      riskBar.style.backgroundColor = "gray";
-      patientNote.innerText = "";
-      doctorNote.innerText = "";
-    }
-
-    document.getElementById("summaryBox").style.display = "block";
-    document.getElementById("downloadBtn").style.display = "inline-block";
-  } catch (error) {
-    console.error("Prediction error:", error);
-    alert("Something went wrong while predicting kidney risk.");
+  if (result.risk === "Low") {
+    riskBar.style.backgroundColor = "green";
+    patientNote.innerText = "✅ Keep up your healthy habits!";
+    doctorNote.innerText = "👍 No urgent action needed. Continue monitoring.";
+  } else if (result.risk === "Moderate") {
+    riskBar.style.backgroundColor = "orange";
+    patientNote.innerText = "⚠️ Consider lifestyle improvements. Follow up recommended.";
+    doctorNote.innerText = "🧪 Monitor kidney function more frequently. Consider further testing.";
+  } else if (result.risk === "High") {
+    riskBar.style.backgroundColor = "red";
+    patientNote.innerText = "❗ See your doctor immediately.";
+    doctorNote.innerText = "🚨 Urgent: Order labs (ACR, GFR, BP logs). Adjust medications.";
+  } else {
+    riskBar.style.backgroundColor = "gray";
+    patientNote.innerText = "";
+    doctorNote.innerText = "";
   }
+
+  // ✅ Show PDF button
+  document.getElementById("downloadBtn").style.display = "inline-block";
 });
 
 // 🧾 PDF Download Logic
@@ -64,21 +59,8 @@ document.getElementById("downloadBtn").addEventListener("click", () => {
   doc.setFontSize(12);
   doc.text(`Date: ${new Date().toLocaleString()}`, 20, 30);
   doc.text(`Risk Level: ${risk}`, 20, 45);
-  doc.text(`Patient Suggestion: ${patientNote}`, 20, 60);
-  doc.text(`Doctor Guidance: ${doctorNote}`, 20, 80);
+  doc.text(`\nPatient Suggestion: ${patientNote}`, 20, 60);
+  doc.text(`\nDoctor Guidance: ${doctorNote}`, 20, 80);
 
   doc.save("KidneyHealthReport.pdf");
-});
-
-
-// ✅ Dexcom OAuth: Connect to CGM
-document.getElementById("connectCGM").addEventListener("click", () => {
-const clientId = "EjJmOsxReUCm2GojkJ37SoF3E0WnLu5";  // this must match your Dexcom client ID
-  const redirectUri = "https://kidney-health-ui.vercel.app/cgm-callback";
-  const responseType = "code";
-  const scope = "offline_access CGM";  // adjust scope as required
-  const state = "abc123";  // You can randomize this if needed
-const authUrl = `https://sandbox-api.dexcom.com/v2/oauth2/login?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=offline_access CGM&state=abc123`;
-  
-  window.location.href = authUrl;
 });
