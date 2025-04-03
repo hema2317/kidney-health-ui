@@ -1,26 +1,42 @@
-/* Tooltip container */
-.tooltip {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  cursor: pointer;
-  font-size: 20px;
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  padding: 20px;
+}
+
+h1 {
   color: #2e5aac;
 }
 
-.tooltip .tooltiptext {
+/* Tooltip Styles */
+.tooltip {
+  font-size: 18px;
+  color: red;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.tooltiptext {
   visibility: hidden;
-  width: 180px;
-  background-color: rgba(0, 0, 0, 0.75);
-  color: #fff;
+  width: 150px;
+  background-color: #f1f1f1;
+  color: black;
   text-align: center;
   border-radius: 5px;
   padding: 5px;
   position: absolute;
   z-index: 1;
-  bottom: 120%;
+  bottom: 125%;
   left: 50%;
-  margin-left: -90px;
+  margin-left: -75px;
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -30,56 +46,88 @@
   opacity: 1;
 }
 
-/* Form Styling */
+/* Form Styles */
+form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
 label {
   display: block;
   margin-bottom: 10px;
-  position: relative;
+  font-size: 14px;
 }
 
-input, select {
-  padding: 8px;
-  margin-top: 5px;
-  margin-bottom: 10px;
+input[type="number"], select {
   width: 100%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  position: relative;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
-/* Responsive Design */
+button {
+  background-color: #2e5aac;
+  color: white;
+  padding: 12px;
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1f4597;
+}
+
+/* Result Box */
+#summaryBox {
+  margin-top: 20px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#riskBar {
+  height: 20px;
+  margin: 10px 0;
+  border-radius: 4px;
+}
+
+#downloadBtn {
+  background-color: #2e5aac;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#downloadBtn:hover {
+  background-color: #1f4597;
+}
+
+/* Media Queries for Responsiveness */
 @media (max-width: 600px) {
-  body {
+  form {
+    max-width: 90%;
+  }
+
+  button {
     font-size: 14px;
   }
 
-  label {
+  .tooltip {
     font-size: 16px;
   }
-
-  .tooltip .tooltiptext {
-    width: 140px;
-    font-size: 12px;
-  }
-
-  button {
-    width: 100%;
-    padding: 12px;
-  }
 }
 
-/* Ensuring everything looks good for desktop */
-@media (min-width: 600px) {
-  label {
-    font-size: 18px;
-  }
-
-  .tooltip .tooltiptext {
-    width: 160px;
-    font-size: 14px;
-  }
-
-  button {
-    padding: 15px 30px;
-  }
-}
