@@ -17,8 +17,10 @@ document.getElementById("predictForm").addEventListener("submit", async function
       body: JSON.stringify(data),
     });
 
-    const result = await res.json();
+    if (!res.ok) throw new Error("Prediction failed");
 
+    const result = await res.json();
+    document.getElementById("summaryBox").style.display = "block";
     document.getElementById("result").innerText = "Risk Level: " + result.risk;
 
     const riskBar = document.getElementById("riskBar");
@@ -31,42 +33,37 @@ document.getElementById("predictForm").addEventListener("submit", async function
       doctorNote.innerText = "👍 No urgent action needed. Continue monitoring.";
     } else if (result.risk === "Moderate") {
       riskBar.style.backgroundColor = "orange";
-      patientNote.innerText = "⚠️ Consider lifestyle improvements.";
-      doctorNote.innerText = "🧪 Monitor kidney function. Recommend follow-up labs.";
+      patientNote.innerText = "⚠️ Consider lifestyle improvements. Follow up recommended.";
+      doctorNote.innerText = "🧪 Monitor kidney function more frequently. Consider further testing.";
     } else if (result.risk === "High") {
       riskBar.style.backgroundColor = "red";
       patientNote.innerText = "❗ See your doctor immediately.";
-      doctorNote.innerText = "🚨 Urgent: Order labs. Adjust medications.";
+      doctorNote.innerText = "🚨 Urgent: Order labs (ACR, GFR, BP logs). Adjust medications.";
     } else {
       riskBar.style.backgroundColor = "gray";
       patientNote.innerText = "";
       doctorNote.innerText = "";
     }
 
-    document.getElementById("summaryBox").style.display = "block";
     document.getElementById("downloadBtn").style.display = "inline-block";
-  } catch (error) {
-    alert("Prediction failed. Please try again.");
-    console.error("Error:", error);
+  } catch (err) {
+    console.error("Prediction error:", err);
+    alert("Something went wrong while predicting kidney risk.");
   }
 });
 
-// PDF generation
+// PDF Download
 document.getElementById("downloadBtn").addEventListener("click", () => {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
-
-  const risk = document.getElementById("result").innerText;
-  const patientNote = document.getElementById("patientNote").innerText;
-  const doctorNote = document.getElementById("doctorNote").innerText;
 
   doc.setFontSize(18);
   doc.text("Kidney Health Risk Report", 20, 20);
   doc.setFontSize(12);
   doc.text(`Date: ${new Date().toLocaleString()}`, 20, 30);
-  doc.text(`Risk Level: ${risk}`, 20, 45);
-  doc.text(`Patient Note: ${patientNote}`, 20, 60);
-  doc.text(`Doctor Note: ${doctorNote}`, 20, 80);
+  doc.text(`Risk Level: ${document.getElementById("result").innerText}`, 20, 45);
+  doc.text(`Patient Suggestion: ${document.getElementById("patientNote").innerText}`, 20, 60);
+  doc.text(`Doctor Guidance: ${document.getElementById("doctorNote").innerText}`, 20, 80);
 
   doc.save("KidneyHealthReport.pdf");
 });
