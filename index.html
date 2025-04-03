@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>V2 Kidney Health Risk Predictor</title>
+  <title>V2 Health - Kidney Risk</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
@@ -12,60 +12,73 @@
     <h1>V2 Kidney Health Risk Predictor</h1>
   </header>
 
-  <div class="form-container">
-    <form id="predictForm">
-      <div class="input-group">
-        <label>HbA1c (%) 
-          <span class="tooltip">❓
-            <span class="tooltiptext">Average blood sugar over 3 months. Normal Range: 4% to 5.6%</span>
+  <form id="predictForm" class="form-container">
+    <div class="input-group">
+      <label>HbA1c (%) 
+        <span class="tooltip">❓
+          <span class="tooltiptext">
+            Average blood sugar over 3 months. Normal range: 4% to 5.6%
           </span>
-        </label>
-        <input type="number" name="hba1c" step="0.1" required />
-      </div>
+        </span>
+      </label>
+      <input type="number" name="hba1c" step="0.1" required />
+    </div>
 
-      <div class="input-group">
-        <label>Albumin (mg/dL)
-          <span class="tooltip">❓
-            <span class="tooltiptext">Protein in your urine. Normal Range: 30–300 mg/g</span>
+    <div class="input-group">
+      <label>Albumin (mg/dL) 
+        <span class="tooltip">❓
+          <span class="tooltiptext">
+            Protein in your urine. Normal range: Less than 30 mg/dL.
           </span>
-        </label>
-        <input type="number" name="albumin" required />
-      </div>
+        </span>
+      </label>
+      <input type="number" name="albumin" required />
+    </div>
 
-      <div class="input-group">
-        <label>Urine Creatinine (mg/kg/day)
-          <span class="tooltip">❓
-            <span class="tooltiptext">Normal: M 14–26, F 11–20 mg/kg/day</span>
+    <div class="input-group">
+      <label>Urine Creatinine (mg/kg/day) 
+        <span class="tooltip">❓
+          <span class="tooltiptext">
+            Normal range: M 14–26, F 11–20 mg/kg/day.
           </span>
-        </label>
-        <input type="number" name="creatinine" step="0.1" required />
-      </div>
+        </span>
+      </label>
+      <input type="number" name="creatinine" step="0.1" required />
+    </div>
 
-      <div class="input-group">
-        <label>eGFR (mL/min/1.73m²)
-          <span class="tooltip">❓
-            <span class="tooltiptext">Estimated kidney filtration rate. Normal Range: >90 mL/min/1.73m²</span>
+    <div class="input-group">
+      <label>eGFR (mL/min/1.73m²) 
+        <span class="tooltip">❓
+          <span class="tooltiptext">
+            Estimated kidney filtration rate. Normal range: >90 mL/min/1.73m².
           </span>
-        </label>
-        <input type="number" name="egfr" required />
-      </div>
+        </span>
+      </label>
+      <input type="number" name="egfr" required />
+    </div>
 
-      <div class="input-group">
-        <label>Age (years)</label>
-        <input type="number" name="age" required />
-      </div>
+    <div class="input-group">
+      <label>Age (years)
+        <span class="tooltip">❓
+          <span class="tooltiptext">
+            Patient's age in years.
+          </span>
+        </span>
+      </label>
+      <input type="number" name="age" required />
+    </div>
 
-      <div class="input-group">
-        <label>Sex:</label>
+    <div class="input-group">
+      <label>Sex:
         <select name="sex">
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
-      </div>
+      </label>
+    </div>
 
-      <button type="submit">🔍 Predict My Kidney Risk</button>
-    </form>
-  </div>
+    <button type="submit">🔍 Predict My Kidney Risk</button>
+  </form>
 
   <!-- 📄 Result summary -->
   <div id="summaryBox" style="display:none;">
