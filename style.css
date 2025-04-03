@@ -16,7 +16,7 @@ header h1 {
   color: #2e5aac;
 }
 
-form {
+.form-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
