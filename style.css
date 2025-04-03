@@ -1,17 +1,21 @@
 body {
   font-family: Arial, sans-serif;
   background-color: #f8f8f8;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   margin: 0;
+  padding: 0;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-top: 20px;
 }
 
 header h1 {
-  font-size: 1.8rem;
+  font-size: 2rem;
   color: #2e5aac;
-  margin-bottom: 20px;
+  margin: 0;
+  padding: 0;
 }
 
 .form-container {
@@ -21,6 +25,7 @@ header h1 {
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
 }
 
 .input-group {
@@ -59,6 +64,7 @@ button:hover {
 @media (max-width: 768px) {
   header h1 {
     font-size: 1.5rem;
+    text-align: center;
   }
 
   .form-container {
@@ -68,5 +74,9 @@ button:hover {
 
   .input-group input, .input-group select {
     padding: 12px;
+  }
+
+  button {
+    font-size: 1rem;
   }
 }
