@@ -18,9 +18,8 @@ document.getElementById("predictForm").addEventListener("submit", async function
     });
 
     const result = await res.json();
-
-    document.getElementById("result").innerText = "Risk Level: " + result.risk;
     document.getElementById("summaryBox").style.display = "block";
+    document.getElementById("result").innerText = "Risk Level: " + result.risk;
 
     const riskBar = document.getElementById("riskBar");
     const patientNote = document.getElementById("patientNote");
@@ -28,26 +27,47 @@ document.getElementById("predictForm").addEventListener("submit", async function
 
     if (result.risk === "Low") {
       riskBar.style.backgroundColor = "green";
-      patientNote.innerText = "✅ Great! Keep up healthy habits.";
-      doctorNote.innerText = "👍 No immediate action needed.";
+      patientNote.innerText = "✅ Keep up your healthy habits!";
+      doctorNote.innerText = "👍 No urgent action needed. Continue monitoring.";
     } else if (result.risk === "Moderate") {
       riskBar.style.backgroundColor = "orange";
-      patientNote.innerText = "⚠️ Consider lifestyle improvements.";
-      doctorNote.innerText = "🧪 Monitor kidney function. Recommend labs.";
+      patientNote.innerText = "⚠️ Consider lifestyle improvements. Follow up recommended.";
+      doctorNote.innerText = "🧪 Monitor kidney function more frequently. Consider further testing.";
     } else if (result.risk === "High") {
       riskBar.style.backgroundColor = "red";
-      patientNote.innerText = "❗ See a doctor immediately.";
-      doctorNote.innerText = "🚨 Order ACR, GFR. Adjust medications.";
+      patientNote.innerText = "❗ See your doctor immediately.";
+      doctorNote.innerText = "🚨 Urgent: Order labs (ACR, GFR, BP logs). Adjust medications.";
     } else {
       riskBar.style.backgroundColor = "gray";
-      patientNote.innerText = "❓ Unable to determine.";
+      patientNote.innerText = "";
       doctorNote.innerText = "";
     }
 
+    // Show PDF button
     document.getElementById("downloadBtn").style.display = "inline-block";
 
-  } catch (err) {
-    alert("❌ Prediction failed. Try again later.");
-    console.error("Error:", err);
+  } catch (error) {
+    alert("Something went wrong. Please try again.");
+    console.error(error);
   }
+});
+
+// PDF Download Logic
+document.getElementById("downloadBtn").addEventListener("click", () => {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  const risk = document.getElementById("result").innerText;
+  const patientNote = document.getElementById("patientNote").innerText;
+  const doctorNote = document.getElementById("doctorNote").innerText;
+
+  doc.setFontSize(18);
+  doc.text("Kidney Health Risk Report", 20, 20);
+  doc.setFontSize(12);
+  doc.text(`Date: ${new Date().toLocaleString()}`, 20, 30);
+  doc.text(`Risk Level: ${risk}`, 20, 45);
+  doc.text(`Patient Suggestion: ${patientNote}`, 20, 60);
+  doc.text(`Doctor Guidance: ${doctorNote}`, 20, 80);
+
+  doc.save("KidneyHealthReport.pdf");
 });
