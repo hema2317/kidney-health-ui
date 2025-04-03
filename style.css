@@ -1,16 +1,16 @@
 /* Tooltip container */
 .tooltip {
-  position: relative;
-  display: inline-block;
+  position: absolute;
+  right: 10px;
+  top: 10px;
   cursor: pointer;
+  font-size: 20px;
   color: #2e5aac;
-  font-size: 18px;
-  padding-left: 5px;
 }
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 160px;
+  width: 180px;
   background-color: rgba(0, 0, 0, 0.75);
   color: #fff;
   text-align: center;
@@ -18,9 +18,9 @@
   padding: 5px;
   position: absolute;
   z-index: 1;
-  bottom: 125%; /* Position above the text */
+  bottom: 120%;
   left: 50%;
-  margin-left: -80px; /* Center the tooltip */
+  margin-left: -90px;
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -30,15 +30,11 @@
   opacity: 1;
 }
 
-/* Adjusting the tooltip text size */
-.tooltiptext {
-  font-size: 14px;
-}
-
-/* Ensuring input fields and labels align well */
+/* Form Styling */
 label {
   display: block;
   margin-bottom: 10px;
+  position: relative;
 }
 
 input, select {
@@ -48,27 +44,7 @@ input, select {
   width: 100%;
   border: 1px solid #ccc;
   border-radius: 5px;
-}
-
-button {
-  background-color: #2e5aac;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #1f449f;
-}
-
-/* For question marks, positioning them beside input fields */
-label .tooltip {
   position: relative;
-  display: inline-block;
-  margin-left: 10px; /* Space between input and tooltip */
-  font-size: 20px;
 }
 
 /* Responsive Design */
@@ -82,12 +58,28 @@ label .tooltip {
   }
 
   .tooltip .tooltiptext {
-    width: 120px;
+    width: 140px;
     font-size: 12px;
   }
 
   button {
     width: 100%;
     padding: 12px;
+  }
+}
+
+/* Ensuring everything looks good for desktop */
+@media (min-width: 600px) {
+  label {
+    font-size: 18px;
+  }
+
+  .tooltip .tooltiptext {
+    width: 160px;
+    font-size: 14px;
+  }
+
+  button {
+    padding: 15px 30px;
   }
 }
