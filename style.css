@@ -1,109 +1,59 @@
 body {
   font-family: Arial, sans-serif;
+  background-color: #f4f6f9;
   margin: 0;
-  background: #f7f7f7;
+  padding: 0;
 }
 
-header {
-  text-align: center;
-  padding: 20px;
-}
-
-h1 {
-  font-size: 1.8rem;
-  color: #2e5aac;
-}
-
-.form-wrapper {
+.container {
   display: flex;
-  justify-content: center;
-  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.6rem;
+  color: #2c5eb4;
+  margin-bottom: 1rem;
 }
 
 .form-container {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
   width: 100%;
-  max-width: 500px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  max-width: 400px;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
 }
 
 .input-group {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
-.input-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
+label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 input, select {
   width: 100%;
-  padding: 12px;
-  font-size: 1rem;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
-button {
+button[type="submit"] {
   width: 100%;
-  padding: 15px;
-  background: #2e5aac;
+  background-color: #2c5eb4;
   color: white;
+  padding: 10px;
+  font-size: 1rem;
   border: none;
-  font-size: 1.1rem;
   border-radius: 5px;
   cursor: pointer;
-}
-
-button:hover {
-  background: #244a91;
-}
-
-/* Tooltips */
-.tooltip {
-  position: relative;
-  color: red;
-  margin-left: 4px;
-  cursor: pointer;
-}
-
-.tooltiptext {
-  visibility: hidden;
-  width: 220px;
-  background-color: #2e5aac;
-  color: #fff;
-  text-align: center;
-  padding: 6px 10px;
-  border-radius: 5px;
-  position: absolute;
-  z-index: 2;
-  bottom: 125%; 
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  h1 {
-    font-size: 1.5rem;
-  }
-
-  .form-container {
-    padding: 15px;
-  }
-
-  input, select, button {
-    font-size: 1rem;
-    padding: 12px;
-  }
 }
