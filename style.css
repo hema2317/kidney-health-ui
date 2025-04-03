@@ -1,104 +1,104 @@
-/* Responsive adjustments for the form */
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f7f7f7;
+}
+
+header h1 {
+  font-size: 28px;
+  color: #2e5aac;
+}
+
 form {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 10px;
+  gap: 20px;
   width: 100%;
+  max-width: 500px;
 }
 
-input, select, button {
-  width: 80%;
-  padding: 8px;
-  margin: 5px;
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+input[type="number"], select {
+  padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-label {
-  font-size: 14px;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
 button {
+  padding: 10px;
   background-color: #2e5aac;
   color: white;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-size: 16px;
 }
 
 button:hover {
-  background-color: #1c3d73;
+  background-color: #3f78d4;
 }
 
-/* Tooltips */
+#summaryBox {
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#result {
+  font-size: 18px;
+}
+
+#riskBar {
+  margin: 10px 0;
+  height: 10px;
+  border-radius: 5px;
+}
+
 .tooltip {
-  position: relative;
+  color: red;
   cursor: pointer;
 }
 
-.tooltip .tooltiptext {
+.tooltiptext {
   visibility: hidden;
-  width: 200px;
-  background-color: #555;
+  background-color: black;
   color: #fff;
   text-align: center;
-  border-radius: 6px;
+  border-radius: 5px;
   padding: 5px;
   position: absolute;
   z-index: 1;
-  bottom: 125%; /* Position the tooltip above the text */
+  bottom: 125%; /* Position above the tooltip */
   left: 50%;
-  margin-left: -100px; /* Offset to center the tooltip */
-  opacity: 0;
-  transition: opacity 0.3s;
+  margin-left: -60px;
 }
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
-  opacity: 1;
 }
 
-/* Responsive box for prediction result */
-#summaryBox {
-  width: 90%;
-  max-width: 600px;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-#summaryBox p {
-  font-size: 14px;
-}
-
-#riskBar {
-  height: 10px;
-  width: 100%;
-  margin-top: 10px;
-  border-radius: 5px;
-}
-
-#downloadBtn {
-  display: none;
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #2e5aac;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-#downloadBtn:hover {
-  background-color: #1c3d73;
-}
-
-/* Ensure the form items and predictions are within the viewport */
-@media screen and (max-width: 600px) {
-  form {
+/* Responsiveness */
+@media (max-width: 768px) {
+  .input-group {
     width: 100%;
   }
 
-  input, select, button {
-    width: 90%;
+  button {
+    width: 100%;
   }
 }
