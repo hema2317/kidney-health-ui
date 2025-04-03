@@ -1,137 +1,72 @@
-/* General styling */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f6f9;
-  margin: 0;
-  padding: 0;
+  background-color: #f8f8f8;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-}
-
-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-h1 {
-  color: #2e5aac;
-  font-size: 2em;
+  height: 100vh;
   margin: 0;
 }
 
-form {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
+header h1 {
+  font-size: 1.8rem;
+  color: #2e5aac;
+  margin-bottom: 20px;
+}
+
+.form-container {
   width: 100%;
-  max-width: 500px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .input-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;  /* Add space after each field */
+  margin-bottom: 20px;
 }
 
-label {
-  font-size: 16px;
+.input-group label {
+  font-size: 1.1rem;
+  display: block;
   margin-bottom: 5px;
 }
 
-input,
-select {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.input-group input, .input-group select {
   width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 button {
+  width: 100%;
+  padding: 15px;
   background-color: #2e5aac;
   color: white;
+  font-size: 1.2rem;
   border: none;
-  padding: 12px;
-  font-size: 18px;
-  border-radius: 4px;
-  width: 100%;
+  border-radius: 5px;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #1f3c7c;
+  background-color: #1f4f92;
 }
 
-/* Tooltip styling */
-.tooltip {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-}
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 220px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -110px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
+  .form-container {
+    width: 90%;
+    padding: 15px;
+  }
 
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
-
-/* Styling for the prediction result */
-#summaryBox {
-  background-color: #fff;
-  padding: 20px;
-  margin-top: 20px;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 500px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-#result {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-#riskBar {
-  height: 10px;
-  margin-top: 10px;
-  border-radius: 5px;
-}
-
-#patientNote,
-#doctorNote {
-  margin-top: 10px;
-}
-
-button#downloadBtn {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 12px;
-  font-size: 16px;
-  border-radius: 4px;
-  width: 100%;
-  cursor: pointer;
-}
-
-button#downloadBtn:hover {
-  background-color: #45a049;
+  .input-group input, .input-group select {
+    padding: 12px;
+  }
 }
