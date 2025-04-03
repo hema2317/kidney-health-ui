@@ -1,85 +1,68 @@
-/* Global Styles */
+/* General styling */
 body {
   font-family: Arial, sans-serif;
+  background-color: #f4f6f9;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  height: 100vh;
-  background-color: #f7f7f7;
+  min-height: 100vh;
 }
 
-header h1 {
-  font-size: 24px; /* Reduced size for mobile */
-  color: #2e5aac;
-  margin-bottom: 30px;
+header {
   text-align: center;
-  word-wrap: break-word; /* Ensures long words break correctly on smaller screens */
+  margin-bottom: 20px;
 }
 
-.form-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+h1 {
+  color: #2e5aac;
+  font-size: 2em;
+  margin: 0;
+}
+
+form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
   width: 100%;
   max-width: 500px;
-  margin: 0 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  margin-bottom: 15px;  /* Add space after each field */
 }
 
-input[type="number"], select {
+label {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+input,
+select {
   padding: 10px;
+  font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 16px;
-  width: 100%; /* Ensures the inputs fill the available space */
+  width: 100%;
 }
 
 button {
-  padding: 12px;
   background-color: #2e5aac;
   color: white;
   border: none;
+  padding: 12px;
+  font-size: 18px;
   border-radius: 4px;
+  width: 100%;
   cursor: pointer;
-  font-size: 16px;
-  width: 100%; /* Ensures the button spans the full width */
 }
 
 button:hover {
-  background-color: #3f78d4;
-}
-
-#summaryBox {
-  margin-top: 20px;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Full width for better mobile layout */
-}
-
-#result {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-#riskBar {
-  margin-top: 10px;
-  height: 10px;
-}
-
-button#downloadBtn {
-  margin-top: 10px;
-  width: 100%;
+  background-color: #1f3c7c;
 }
 
 /* Tooltip styling */
@@ -87,23 +70,21 @@ button#downloadBtn {
   position: relative;
   display: inline-block;
   cursor: pointer;
-  color: #2e5aac;
-  font-weight: bold;
 }
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 200px;
-  background-color: rgba(0, 0, 0, 0.75);
+  width: 220px;
+  background-color: #555;
   color: #fff;
   text-align: center;
-  border-radius: 5px;
-  padding: 5px;
+  border-radius: 6px;
+  padding: 5px 0;
   position: absolute;
   z-index: 1;
-  bottom: 100%; /* Position the tooltip above the element */
+  bottom: 125%;
   left: 50%;
-  margin-left: -100px; /* Offset the tooltip to center */
+  margin-left: -110px;
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -113,17 +94,44 @@ button#downloadBtn {
   opacity: 1;
 }
 
-/* Responsive Design for smaller screens */
-@media (max-width: 600px) {
-  header h1 {
-    font-size: 18px; /* Adjusted for small mobile screens */
-  }
+/* Styling for the prediction result */
+#summaryBox {
+  background-color: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-  .form-container {
-    margin: 0 10px; /* Less margin on smaller screens */
-  }
+#result {
+  font-size: 20px;
+  font-weight: bold;
+}
 
-  .input-group label {
-    font-size: 14px; /* Smaller labels on mobile */
-  }
+#riskBar {
+  height: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+#patientNote,
+#doctorNote {
+  margin-top: 10px;
+}
+
+button#downloadBtn {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  width: 100%;
+  cursor: pointer;
+}
+
+button#downloadBtn:hover {
+  background-color: #45a049;
 }
