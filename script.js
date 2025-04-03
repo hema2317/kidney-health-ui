@@ -10,6 +10,8 @@ document.getElementById("predictForm").addEventListener("submit", async function
     sex: this.sex.value
   };
 
+  console.log("Sending data to API:", data);
+
   const res = await fetch("https://kidney-health-api.onrender.com/predict", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -17,15 +19,14 @@ document.getElementById("predictForm").addEventListener("submit", async function
   });
 
   const result = await res.json();
+  console.log("Prediction result from API:", result);
 
-  const resultBox = document.getElementById("summaryBox");
-  const resultText = document.getElementById("result");
+  document.getElementById("summaryBox").style.display = "block"; // ✅ show the result box
+  document.getElementById("result").innerText = "Risk Level: " + result.risk;
+
   const riskBar = document.getElementById("riskBar");
   const patientNote = document.getElementById("patientNote");
   const doctorNote = document.getElementById("doctorNote");
-
-  resultBox.style.display = "block";
-  resultText.innerText = "Risk Level: " + result.risk;
 
   if (result.risk === "Low") {
     riskBar.style.backgroundColor = "green";
@@ -33,8 +34,8 @@ document.getElementById("predictForm").addEventListener("submit", async function
     doctorNote.innerText = "👍 No urgent action needed. Continue monitoring.";
   } else if (result.risk === "Moderate") {
     riskBar.style.backgroundColor = "orange";
-    patientNote.innerText = "⚠️ Consider lifestyle improvements.";
-    doctorNote.innerText = "🧪 Monitor kidney function. Recommend follow-up labs.";
+    patientNote.innerText = "⚠️ Consider lifestyle improvements. Follow up recommended.";
+    doctorNote.innerText = "🧪 Monitor kidney function more frequently. Consider further testing.";
   } else if (result.risk === "High") {
     riskBar.style.backgroundColor = "red";
     patientNote.innerText = "❗ See your doctor immediately.";
@@ -45,11 +46,10 @@ document.getElementById("predictForm").addEventListener("submit", async function
     doctorNote.innerText = "";
   }
 
-  // ✅ Show PDF button
   document.getElementById("downloadBtn").style.display = "inline-block";
 });
 
-// 🧾 PDF Download Logic
+// 🧾 PDF Download
 document.getElementById("downloadBtn").addEventListener("click", () => {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
@@ -62,7 +62,7 @@ document.getElementById("downloadBtn").addEventListener("click", () => {
   doc.text("Kidney Health Risk Report", 20, 20);
   doc.setFontSize(12);
   doc.text(`Date: ${new Date().toLocaleString()}`, 20, 30);
-  doc.text(`Risk Level: ${risk}`, 20, 45);
+  doc.text(`\nRisk Level: ${risk}`, 20, 45);
   doc.text(`\nPatient Suggestion: ${patientNote}`, 20, 60);
   doc.text(`\nDoctor Guidance: ${doctorNote}`, 20, 80);
 
