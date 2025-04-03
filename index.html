@@ -6,32 +6,74 @@
   <title>V2 Health - Kidney Risk</title>
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    /* Tooltip Styling */
+    .tooltip {
+      cursor: pointer;
+      position: relative;
+      display: inline-block;
+      margin-left: 5px;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 160px;
+      background-color: #6c757d;
+      color: #fff;
+      text-align: center;
+      border-radius: 5px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%; /* Position the tooltip above the text */
+      left: 50%;
+      margin-left: -80px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
   <header style="text-align:center; margin-bottom: 20px;">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/V2_logo_icon.png/600px-V2_logo_icon.png" alt="V2 Health" width="60" style="margin-bottom: 10px;" />
     <h1 style="color: #2e5aac;">V2 Kidney Health Risk Predictor</h1>
   </header>
 
   <form id="predictForm">
-    <label>HbA1c (%)
+    <!-- HbA1c input field with tooltip displaying info on average blood sugar -->
+    <label>HbA1c (%) 
       <input type="number" name="hba1c" step="0.1" required />
-      <span class="tooltip"> <span class="tooltiptext">Average blood sugar over 3 months</span>❓</span>
+      <span class="tooltip">? 
+        <span class="tooltiptext">Average blood sugar over 3 months</span>
+      </span>
     </label>
 
+    <!-- Albumin input field with tooltip showing info on protein in urine -->
     <label>Albumin (mg/dL)
       <input type="number" name="albumin" required />
-      <span class="tooltip"> <span class="tooltiptext">Protein in your urine</span>❓</span>
+      <span class="tooltip">? 
+        <span class="tooltiptext">Protein in your urine</span>
+      </span>
     </label>
 
+    <!-- Urine Creatinine input field with tooltip showing normal creatinine values for male and female -->
     <label>Urine Creatinine (mg/kg/day)
       <input type="number" name="creatinine" step="0.1" required />
-      <span class="tooltip"> <span class="tooltiptext">Normal: M 14–26, F 11–20</span>❓</span>
+      <span class="tooltip">? 
+        <span class="tooltiptext">Normal: M 14–26, F 11–20</span>
+      </span>
     </label>
 
+    <!-- eGFR input field with tooltip displaying estimated kidney filtration rate info -->
     <label>eGFR (mL/min/1.73m²)
       <input type="number" name="egfr" required />
-      <span class="tooltip"> <span class="tooltiptext">Estimated kidney filtration rate</span>❓</span>
+      <span class="tooltip">? 
+        <span class="tooltiptext">Estimated kidney filtration rate</span>
+      </span>
     </label>
 
     <label>Age (years)
