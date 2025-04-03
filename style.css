@@ -13,9 +13,11 @@ body {
 }
 
 header h1 {
-  font-size: 28px;
+  font-size: 24px; /* Reduced size for mobile */
   color: #2e5aac;
   margin-bottom: 30px;
+  text-align: center;
+  word-wrap: break-word; /* Ensures long words break correctly on smaller screens */
 }
 
 .form-container {
@@ -38,16 +40,18 @@ input[type="number"], select {
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
+  width: 100%; /* Ensures the inputs fill the available space */
 }
 
 button {
-  padding: 10px;
+  padding: 12px;
   background-color: #2e5aac;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  width: 100%; /* Ensures the button spans the full width */
 }
 
 button:hover {
@@ -60,52 +64,66 @@ button:hover {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Full width for better mobile layout */
 }
 
 #result {
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 #riskBar {
-  margin: 10px 0;
+  margin-top: 10px;
   height: 10px;
-  border-radius: 5px;
 }
 
+button#downloadBtn {
+  margin-top: 10px;
+  width: 100%;
+}
+
+/* Tooltip styling */
 .tooltip {
-  color: red;
+  position: relative;
+  display: inline-block;
   cursor: pointer;
+  color: #2e5aac;
+  font-weight: bold;
 }
 
-.tooltiptext {
+.tooltip .tooltiptext {
   visibility: hidden;
-  background-color: black;
+  width: 200px;
+  background-color: rgba(0, 0, 0, 0.75);
   color: #fff;
   text-align: center;
   border-radius: 5px;
   padding: 5px;
   position: absolute;
   z-index: 1;
-  bottom: 125%; /* Position above the tooltip */
+  bottom: 100%; /* Position the tooltip above the element */
   left: 50%;
-  margin-left: -60px;
+  margin-left: -100px; /* Offset the tooltip to center */
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
+  opacity: 1;
 }
 
-/* Responsiveness */
-@media (max-width: 768px) {
-  .input-group {
-    width: 100%;
+/* Responsive Design for smaller screens */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 18px; /* Adjusted for small mobile screens */
   }
 
-  button {
-    width: 100%;
+  .form-container {
+    margin: 0 10px; /* Less margin on smaller screens */
   }
 
-  #summaryBox {
-    width: 90%;
+  .input-group label {
+    font-size: 14px; /* Smaller labels on mobile */
   }
 }
