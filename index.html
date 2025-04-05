@@ -105,7 +105,7 @@
         const result = await response.json();
 
         if (response.ok) {
-          resultDiv.textContent = "Predicted Risk Level: " + result.prediction;
+          resultDiv.textContent = "Predicted Risk Level: " + result.risk;
         } else {
           resultDiv.textContent = "Error: " + result.error;
         }
