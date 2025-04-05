@@ -11,7 +11,7 @@ document.getElementById("predictForm").addEventListener("submit", async function
   };
 
   try {
-  const res = await fetch("https://kidney-health-api-2.onrender.com/predict", {
+    const res = await fetch("https://kidney-health-api.onrender.com/predict", {  // ✅ Fixed URL
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
