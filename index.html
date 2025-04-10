@@ -150,7 +150,7 @@
       const scr = parseFloat(document.getElementById('scr').value);
       const egfr = parseFloat(document.getElementById('egfr').value);
 
-      const response = await fetch("https://kidney-health-api.onrender.com/predict", {
+      const response = await fetch("https://kidney-health-api-2.onrender.com/predict", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ age, hba1c, albumin, scr, egfr })
@@ -220,7 +220,7 @@
     }
 
     function connectToDexcom() {
-      window.location.href = "https://kidney-health-api.onrender.com/connect-cgm";
+      window.location.href = "https://kidney-health-api-2.onrender.com/connect-cgm";
     }
 
     async function checkForHbA1cEstimate() {
@@ -229,7 +229,7 @@
 
       if (code) {
         try {
-          const response = await fetch(`https://kidney-health-api.onrender.com/cgm-callback?code=${code}`);
+          const response = await fetch(`https://kidney-health-api-2.onrender.com/cgm-callback?code=${code}`);
           const result = await response.json();
           if (result.estimated_hba1c) {
             document.getElementById("hba1c").value = result.estimated_hba1c;
