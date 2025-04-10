@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kidney Health Risk Predictor</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -10,15 +10,27 @@
   <div class="container">
     <h1>Kidney Health Risk Predictor</h1>
     <form id="riskForm">
-      <label>Age: <input type="number" name="age" required></label>
-      <label>HbA1c (%): <input type="number" step="0.1" name="hba1c" required></label>
-      <label>Serum Albumin (mg/dL): <input type="number" step="0.1" name="albumin" required></label>
-      <label>Serum Creatinine (mg/dL): <input type="number" step="0.01" name="scr" required></label>
-      <label>eGFR: <input type="number" step="0.1" name="egfr" required></label>
+      <label>Age:</label>
+      <input type="number" id="age" step="1" required />
+
+      <label>HbA1c (%):</label>
+      <input type="number" id="hba1c" step="0.1" required />
+
+      <label>Serum Albumin (mg/dL):</label>
+      <input type="number" id="albumin" step="0.1" required />
+
+      <label>Serum Creatinine (mg/dL):</label>
+      <input type="number" id="scr" step="0.1" required />
+
+      <label>eGFR:</label>
+      <input type="number" id="egfr" step="1" required />
+
       <button type="submit">Predict My Risk</button>
     </form>
-    <div id="result"></div>
+
+    <p id="result" style="font-weight: bold; margin-top: 20px;"></p>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
