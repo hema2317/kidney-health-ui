@@ -2,64 +2,170 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kidney Health Risk Predictor</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+    .container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+      position: relative;
+    }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+    }
+    .tooltip {
+      cursor: pointer;
+      margin-left: 6px;
+      color: #999;
+      font-size: 14px;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 18px;
+    }
+    .risk-bar {
+      margin-top: 10px;
+      height: 20px;
+      border-radius: 10px;
+      background: linear-gradient(to right, red, yellow, green);
+      position: relative;
+    }
+    .marker {
+      height: 20px;
+      width: 4px;
+      background: black;
+      position: absolute;
+      top: 0;
+    }
+    .explanation, .plans {
+      margin-top: 20px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .plans h4 {
+      margin-top: 10px;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <h1>Kidney Health Risk Predictor</h1>
-
+    <h2>Kidney Health Risk Predictor</h2>
     <div class="form-group">
-      <label for="age">Age: 
-        <span class="tooltip">?
-          <span class="tooltiptext">Any valid age. Typically 18–99.</span>
-        </span>
-      </label>
-      <input type="number" id="age" required>
+      <label>Age: <span class="tooltip" title="Typical: 18-90">?</span></label>
+      <input id="age" type="number" />
     </div>
-
     <div class="form-group">
-      <label for="hba1c">HbA1c (%): 
-        <span class="tooltip">?
-          <span class="tooltiptext">Normal: 4.0–5.6%</span>
-        </span>
-      </label>
-      <input type="number" step="0.1" id="hba1c" required>
+      <label>HbA1c (%): <span class="tooltip" title="Normal: 4.0–5.6, Diabetic: 6.5+">?</span></label>
+      <input id="hba1c" type="number" step="0.1" />
     </div>
-
     <div class="form-group">
-      <label for="albumin">Serum Albumin (g/dL): 
-        <span class="tooltip">?
-          <span class="tooltiptext">Normal: 3.5–5.0 g/dL</span>
-        </span>
-      </label>
-      <input type="number" step="0.1" id="albumin" required>
+      <label>Serum Albumin (g/dL): <span class="tooltip" title="Normal: 3.4–5.4">?</span></label>
+      <input id="albumin" type="number" step="0.1" />
     </div>
-
     <div class="form-group">
-      <label for="scr">Serum Creatinine (mg/dL): 
-        <span class="tooltip">?
-          <span class="tooltiptext">Normal: 0.6–1.2 mg/dL</span>
-        </span>
-      </label>
-      <input type="number" step="0.1" id="scr" required>
+      <label>Serum Creatinine (mg/dL): <span class="tooltip" title="Normal: 0.6–1.3">?</span></label>
+      <input id="scr" type="number" step="0.1" />
     </div>
-
     <div class="form-group">
-      <label for="egfr">eGFR: 
-        <span class="tooltip">?
-          <span class="tooltiptext">Normal: 90–120 mL/min/1.73m²</span>
-        </span>
-      </label>
-      <input type="number" step="1" id="egfr" required>
+      <label>eGFR: <span class="tooltip" title=">90 is normal, <60 is low">?</span></label>
+      <input id="egfr" type="number" />
     </div>
-
     <button onclick="predictRisk()">Predict My Risk</button>
-
-    <div id="result" class="result-box"></div>
+    <div class="result" id="result"></div>
+    <div class="risk-bar" id="riskBar"><div class="marker" id="marker"></div></div>
+    <div class="explanation" id="explanation"></div>
+    <div class="plans" id="plans"></div>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    async function predictRisk() {
+      const age = parseFloat(document.getElementById('age').value);
+      const hba1c = parseFloat(document.getElementById('hba1c').value);
+      const albumin = parseFloat(document.getElementById('albumin').value);
+      const scr = parseFloat(document.getElementById('scr').value);
+      const egfr = parseFloat(document.getElementById('egfr').value);
+
+      const response = await fetch("https://kidney-health-api.onrender.com/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ age, hba1c, albumin, scr, egfr })
+      });
+
+      const data = await response.json();
+      const risk = data.risk;
+
+      const resultEl = document.getElementById("result");
+      const explanation = document.getElementById("explanation");
+      const plans = document.getElementById("plans");
+      const marker = document.getElementById("marker");
+
+      // Display result
+      resultEl.innerText = `Risk: ${risk}`;
+
+      // Move marker
+      let percent = 0;
+      if (risk === 'Moderate') percent = 50;
+      else if (risk === 'Low') percent = 95;
+      marker.style.left = `calc(${percent}% - 2px)`;
+
+      // Show explanation
+      explanation.innerHTML = `
+        <strong>Why this result?</strong><br>
+        Your prediction is based on:
+        eGFR (${egfr}), HbA1c (${hba1c}%), Creatinine (${scr} mg/dL), and Albumin (${albumin} g/dL).
+        These values influence kidney filtration and diabetic load.
+      `;
+
+      // Future plan
+      plans.innerHTML = `
+        <h4>📌 Patient Plan:</h4>
+        • Maintain blood sugar control<br>
+        • Stay hydrated, follow a kidney-safe diet<br>
+        • Monitor eGFR and lab reports regularly<br>
+        <h4>📌 Doctor Plan:</h4>
+        • Consider retesting in 3 months<br>
+        • Use AI score for triage<br>
+        • Order microalbumin or ultrasound if needed
+      `;
+    }
+  </script>
 </body>
 </html>
