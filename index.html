@@ -112,34 +112,29 @@
   <div class="container">
     <h2>Kidney Health Risk Predictor</h2>
     <div class="form-group">
-      <label>Age:
-        <span class="tooltip" data-tooltip="Recommended: 18–90">?</span>
-      </label>
+      <label>Age: <span class="tooltip" data-tooltip="Recommended: 18–90">?</span></label>
       <input id="age" type="number" />
     </div>
     <div class="form-group">
-      <label for="hba1c">HbA1c (%): <span title="Connect your CGM device to auto-calculate this">❓</span></label>
-      <button onclick="connectToDexcom()" style="margin-top:5px; background-color:#4CAF50; color:white; border:none; padding:6px 12px; border-radius:4px;">Connect to CGM</button>
-      <input type="number" id="hba1c" name="hba1c" step="0.1" placeholder="Enter HbA1c" required />
+    <label>HbA1c (%):
+  <span class="tooltip" data-tooltip="Normal range: 4.0–14.0. Connect to CGM for auto-fill.">?</span>
+</label>
+<button onclick="connectToDexcom()" style="margin-top:5px; background-color:#4CAF50; color:white; border:none; padding:6px 12px; border-radius:4px;">Connect to CGM</button>
+<input type="number" id="hba1c" name="hba1c" step="0.1" min="3.0" max="15.0" placeholder="Enter HbA1c" required />
     </div>
     <div class="form-group">
-      <label>Serum Albumin (g/dL):
-        <span class="tooltip" data-tooltip="Normal: 3.4–5.4 g/dL">?</span>
-      </label>
+      <label>Serum Albumin (g/dL): <span class="tooltip" data-tooltip="Normal: 3.4–5.4 g/dL">?</span></label>
       <input id="albumin" type="number" step="0.1" />
     </div>
     <div class="form-group">
-      <label>Serum Creatinine (mg/dL):
-        <span class="tooltip" data-tooltip="Normal: 0.6–1.3 mg/dL">?</span>
-      </label>
+      <label>Serum Creatinine (mg/dL): <span class="tooltip" data-tooltip="Normal: 0.6–1.3 mg/dL">?</span></label>
       <input id="scr" type="number" step="0.1" />
     </div>
     <div class="form-group">
-      <label>eGFR:
-        <span class="tooltip" data-tooltip=">90 = Normal, <60 = Low kidney function">?</span>
-      </label>
+      <label>eGFR: <span class="tooltip" data-tooltip=">90 = Normal, <60 = Low kidney function">?</span></label>
       <input id="egfr" type="number" />
     </div>
+
     <button onclick="predictRisk()">Predict My Risk</button>
     <div class="result" id="result"></div>
     <div class="risk-bar" id="riskBar"><div class="marker" id="marker"></div></div>
@@ -170,27 +165,57 @@
       const marker = document.getElementById("marker");
 
       resultEl.innerText = `Risk: ${risk}`;
-      let percent = 0;
-      if (risk === 'Moderate') percent = 50;
-      else if (risk === 'Low') percent = 95;
-      marker.style.left = `calc(${percent}% - 2px)`;
+      marker.style.left = risk === 'Moderate' ? '50%' : risk === 'Low' ? '95%' : '5%';
 
       explanation.innerHTML = `
         <strong>Why this result?</strong><br>
-        Your prediction is based on:
-        eGFR (${egfr}), HbA1c (${hba1c}%), Creatinine (${scr} mg/dL), and Albumin (${albumin} g/dL).
-        These values influence kidney filtration and diabetic load.
+        Your prediction is based on: eGFR (${egfr}), HbA1c (${hba1c}%), Creatinine (${scr} mg/dL), and Albumin (${albumin} g/dL). These values influence kidney filtration and diabetic load.
       `;
 
+      let patientPlan = '';
+      let doctorPlan = '';
+
+      if (risk === 'Low') {
+        patientPlan = `
+          • Maintain current healthy lifestyle<br>
+          • Monitor blood sugar quarterly<br>
+          • Eat a low-sodium, high-fiber diet<br>
+          • Stay hydrated
+        `;
+        doctorPlan = `
+          • Routine checkups every 6–12 months<br>
+          • No immediate interventions<br>
+          • Continue patient education
+        `;
+      } else if (risk === 'Moderate') {
+        patientPlan = `
+          • Improve glycemic control (HbA1c under 7%)<br>
+          • Follow a low-protein, kidney-safe diet<br>
+          • Increase hydration<br>
+          • Exercise moderately
+        `;
+        doctorPlan = `
+          • Repeat labs in 3 months<br>
+          • Review full metabolic panel<br>
+          • Consider nephrology consult if symptoms worsen
+        `;
+      } else if (risk === 'High') {
+        patientPlan = `
+          • Begin strict blood sugar control<br>
+          • Avoid NSAIDs and kidney-harming meds<br>
+          • Follow renal-friendly diet<br>
+          • Monitor BP and glucose daily
+        `;
+        doctorPlan = `
+          • Refer to nephrologist immediately<br>
+          • Consider renal imaging (ultrasound/CT)<br>
+          • Monitor creatinine, eGFR, and potassium monthly
+        `;
+      }
+
       plans.innerHTML = `
-        <h4>📌 Patient Plan:</h4>
-        • Maintain blood sugar control<br>
-        • Stay hydrated, follow a kidney-safe diet<br>
-        • Monitor eGFR and lab reports regularly<br>
-        <h4>📌 Doctor Plan:</h4>
-        • Consider retesting in 3 months<br>
-        • Use AI score for triage<br>
-        • Order microalbumin or ultrasound if needed
+        <h4>📌 Patient Plan:</h4>${patientPlan}
+        <h4>📌 Doctor Plan:</h4>${doctorPlan}
       `;
     }
 
