@@ -7,7 +7,7 @@ document.querySelector("form").addEventListener("submit", async (e) => {
   const scr = parseFloat(document.getElementById("scr").value);
   const egfr = parseFloat(document.getElementById("egfr").value);
 
-  const response = await fetch("https://kidney-health-api.onrender.com/predict", {
+const response = await fetch("https://kidney-health-api-2.onrender.com/predict", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ age, hba1c, albumin, scr, egfr }),
