@@ -2,33 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kidney Health Risk Predictor</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
     <h1>Kidney Health Risk Predictor</h1>
-    <form id="riskForm">
-      <label>Age:</label>
-      <input type="number" id="age" step="1" required />
 
-      <label>HbA1c (%):</label>
-      <input type="number" id="hba1c" step="0.1" required />
+    <div class="form-group">
+      <label for="age">Age: 
+        <span class="tooltip">?
+          <span class="tooltiptext">Any valid age. Typically 18–99.</span>
+        </span>
+      </label>
+      <input type="number" id="age" required>
+    </div>
 
-      <label>Serum Albumin (mg/dL):</label>
-      <input type="number" id="albumin" step="0.1" required />
+    <div class="form-group">
+      <label for="hba1c">HbA1c (%): 
+        <span class="tooltip">?
+          <span class="tooltiptext">Normal: 4.0–5.6%</span>
+        </span>
+      </label>
+      <input type="number" step="0.1" id="hba1c" required>
+    </div>
 
-      <label>Serum Creatinine (mg/dL):</label>
-      <input type="number" id="scr" step="0.1" required />
+    <div class="form-group">
+      <label for="albumin">Serum Albumin (g/dL): 
+        <span class="tooltip">?
+          <span class="tooltiptext">Normal: 3.5–5.0 g/dL</span>
+        </span>
+      </label>
+      <input type="number" step="0.1" id="albumin" required>
+    </div>
 
-      <label>eGFR:</label>
-      <input type="number" id="egfr" step="1" required />
+    <div class="form-group">
+      <label for="scr">Serum Creatinine (mg/dL): 
+        <span class="tooltip">?
+          <span class="tooltiptext">Normal: 0.6–1.2 mg/dL</span>
+        </span>
+      </label>
+      <input type="number" step="0.1" id="scr" required>
+    </div>
 
-      <button type="submit">Predict My Risk</button>
-    </form>
+    <div class="form-group">
+      <label for="egfr">eGFR: 
+        <span class="tooltip">?
+          <span class="tooltiptext">Normal: 90–120 mL/min/1.73m²</span>
+        </span>
+      </label>
+      <input type="number" step="1" id="egfr" required>
+    </div>
 
-    <p id="result" style="font-weight: bold; margin-top: 20px;"></p>
+    <button onclick="predictRisk()">Predict My Risk</button>
+
+    <div id="result" class="result-box"></div>
   </div>
 
   <script src="script.js"></script>
