@@ -116,11 +116,9 @@
       <input id="age" type="number" />
     </div>
     <div class="form-group">
-    <label>HbA1c (%):
-  <span class="tooltip" data-tooltip="Normal range: 4.0–14.0. Connect to CGM for auto-fill.">?</span>
-</label>
-<button onclick="connectToDexcom()" style="margin-top:5px; background-color:#4CAF50; color:white; border:none; padding:6px 12px; border-radius:4px;">Connect to CGM</button>
-<input type="number" id="hba1c" name="hba1c" step="0.1" min="3.0" max="15.0" placeholder="Enter HbA1c" required />
+      <label>HbA1c (%): <span class="tooltip" data-tooltip="Normal range: 4.0–14.0. Connect to CGM for auto-fill.">?</span></label>
+      <button onclick="connectToDexcom()" style="margin-top:5px; background-color:#4CAF50; color:white; border:none; padding:6px 12px; border-radius:4px;">Connect to CGM</button>
+      <input type="number" id="hba1c" step="0.1" min="3.0" max="15.0" placeholder="Enter HbA1c" required />
     </div>
     <div class="form-group">
       <label>Serum Albumin (g/dL): <span class="tooltip" data-tooltip="Normal: 3.4–5.4 g/dL">?</span></label>
@@ -164,53 +162,52 @@
       const plans = document.getElementById("plans");
       const marker = document.getElementById("marker");
 
-      resultEl.innerText = `Risk: ${risk}`;
+      resultEl.innerHTML = `<strong>Risk:</strong> ${risk}`;
       marker.style.left = risk === 'Moderate' ? '50%' : risk === 'Low' ? '95%' : '5%';
 
       explanation.innerHTML = `
         <strong>Why this result?</strong><br>
-        Your prediction is based on: eGFR (${egfr}), HbA1c (${hba1c}%), Creatinine (${scr} mg/dL), and Albumin (${albumin} g/dL). These values influence kidney filtration and diabetic load.
+        Your prediction is based on: eGFR (${egfr}), HbA1c (${hba1c}%), Creatinine (${scr} mg/dL), and Albumin (${albumin} g/dL).
       `;
 
-      let patientPlan = '';
-      let doctorPlan = '';
+      let concerns = [];
+      if (egfr < 60) concerns.push("low eGFR");
+      if (hba1c > 7) concerns.push("high HbA1c");
+      if (albumin < 3.4) concerns.push("low Albumin");
+      if (scr > 1.2) concerns.push("elevated Creatinine");
 
-      if (risk === 'Low') {
-        patientPlan = `
-          • Maintain current healthy lifestyle<br>
-          • Monitor blood sugar quarterly<br>
-          • Eat a low-sodium, high-fiber diet<br>
-          • Stay hydrated
-        `;
-        doctorPlan = `
-          • Routine checkups every 6–12 months<br>
-          • No immediate interventions<br>
-          • Continue patient education
-        `;
-      } else if (risk === 'Moderate') {
-        patientPlan = `
-          • Improve glycemic control (HbA1c under 7%)<br>
-          • Follow a low-protein, kidney-safe diet<br>
-          • Increase hydration<br>
-          • Exercise moderately
-        `;
-        doctorPlan = `
-          • Repeat labs in 3 months<br>
-          • Review full metabolic panel<br>
-          • Consider nephrology consult if symptoms worsen
-        `;
-      } else if (risk === 'High') {
-        patientPlan = `
-          • Begin strict blood sugar control<br>
-          • Avoid NSAIDs and kidney-harming meds<br>
-          • Follow renal-friendly diet<br>
-          • Monitor BP and glucose daily
-        `;
-        doctorPlan = `
-          • Refer to nephrologist immediately<br>
-          • Consider renal imaging (ultrasound/CT)<br>
-          • Monitor creatinine, eGFR, and potassium monthly
-        `;
+      let patientPlan = "", doctorPlan = "";
+
+      if (risk === "Low") {
+        patientPlan = `• Maintain hydration, healthy diet, and physical activity.<br>
+                       • Monitor blood sugar quarterly.<br>
+                       • Stay consistent with annual health checkups.`;
+        doctorPlan = `• Continue routine monitoring annually.<br>
+                      • Reinforce preventive habits.`;
+      }
+
+      if (risk === "Moderate") {
+        if (concerns.includes("high HbA1c"))
+          patientPlan += `• Reduce sugars and processed carbs. Monitor HbA1c monthly.<br>`,
+          doctorPlan += `• Reassess glucose control strategy. Consider endocrinology input.<br>`;
+        if (concerns.includes("low eGFR"))
+          patientPlan += `• Reduce protein/sodium intake to support kidney function.<br>`,
+          doctorPlan += `• Repeat eGFR in 3 months. Start renal diet counseling.<br>`;
+        if (concerns.includes("elevated Creatinine"))
+          patientPlan += `• Avoid NSAIDs and drink water regularly.<br>`,
+          doctorPlan += `• Monitor creatinine trend. Rule out dehydration or nephrotoxins.<br>`;
+      }
+
+      if (risk === "High") {
+        if (concerns.includes("low Albumin"))
+          patientPlan += `• Include healthy protein sources (eggs, legumes) as guided.<br>`,
+          doctorPlan += `• Assess for protein loss or malnutrition. Order urine ACR.<br>`;
+        if (concerns.includes("high HbA1c"))
+          patientPlan += `• Begin strict sugar control. Avoid high-GI foods.<br>`,
+          doctorPlan += `• Reevaluate diabetes meds. Consider insulin titration.<br>`;
+        if (concerns.includes("low eGFR") || concerns.includes("elevated Creatinine"))
+          patientPlan += `• Follow a kidney-safe meal plan. Avoid alcohol and red meat.<br>`,
+          doctorPlan += `• Urgent nephrology referral. Consider imaging and close labs.<br>`;
       }
 
       plans.innerHTML = `
@@ -226,7 +223,6 @@
     async function checkForHbA1cEstimate() {
       const params = new URLSearchParams(window.location.search);
       const code = params.get("code");
-
       if (code) {
         try {
           const response = await fetch(`https://kidney-health-api-2.onrender.com/cgm-callback?code=${code}`);
@@ -238,7 +234,6 @@
             alert("Connected to CGM, but no HbA1c estimate available.");
           }
         } catch (error) {
-          console.error("Error getting CGM HbA1c:", error);
           alert("Error fetching HbA1c from CGM.");
         }
       }
@@ -246,6 +241,5 @@
 
     window.onload = checkForHbA1cEstimate;
   </script>
-  <script src="script.js"></script> <!-- ✅ THIS LINE IS REQUIRED -->
 </body>
 </html>
