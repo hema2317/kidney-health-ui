@@ -1,36 +1,99 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
-  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f7f9;
   display: flex;
   justify-content: center;
+  padding: 40px;
 }
 
 .container {
-  background-color: white;
-  padding: 30px;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 450px;
+  background: #fff;
+  padding: 30px 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-form input,
-button {
+h1 {
+  font-size: 22px;
+  margin-bottom: 24px;
+  text-align: center;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+input[type="number"] {
   width: 100%;
   padding: 10px;
-  margin-top: 10px;
-  font-size: 1rem;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
 }
 
 button {
-  background-color: #1a73e8;
+  width: 100%;
+  padding: 12px;
+  background-color: #1e88e5;
   color: white;
+  font-weight: bold;
+  font-size: 15px;
   border: none;
+  border-radius: 10px;
   cursor: pointer;
-  border-radius: 5px;
+  margin-top: 12px;
 }
 
 button:hover {
-  background-color: #0c5bd3;
+  background-color: #1565c0;
+}
+
+.result-box {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  color: #333;
+}
+
+.tooltip {
+  display: inline-block;
+  background-color: #ccc;
+  border-radius: 50%;
+  padding: 0 7px;
+  font-size: 12px;
+  cursor: pointer;
+  color: #000;
+  position: relative;
+  margin-left: 6px;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 6px;
+  position: absolute;
+  z-index: 1;
+  top: -5px;
+  left: 110%;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
 }
