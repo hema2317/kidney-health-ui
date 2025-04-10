@@ -89,25 +89,35 @@
   <div class="container">
     <h2>Kidney Health Risk Predictor</h2>
     <div class="form-group">
-      <label>Age: <span class="tooltip" title="Typical: 18-90">?</span></label>
-      <input id="age" type="number" />
-    </div>
-    <div class="form-group">
-      <label>HbA1c (%): <span class="tooltip" title="Normal: 4.0–5.6, Diabetic: 6.5+">?</span></label>
-      <input id="hba1c" type="number" step="0.1" />
-    </div>
-    <div class="form-group">
-      <label>Serum Albumin (g/dL): <span class="tooltip" title="Normal: 3.4–5.4">?</span></label>
-      <input id="albumin" type="number" step="0.1" />
-    </div>
-    <div class="form-group">
-      <label>Serum Creatinine (mg/dL): <span class="tooltip" title="Normal: 0.6–1.3">?</span></label>
-      <input id="scr" type="number" step="0.1" />
-    </div>
-    <div class="form-group">
-      <label>eGFR: <span class="tooltip" title=">90 is normal, <60 is low">?</span></label>
-      <input id="egfr" type="number" />
-    </div>
+  <label>Age:
+    <span class="tooltip" title="Recommended range: 18–90">?</span>
+  </label>
+  <input id="age" type="number" />
+</div>
+<div class="form-group">
+  <label>HbA1c (%):
+    <span class="tooltip" title="Normal: 4.0–5.6 • Diabetic: 6.5+">?</span>
+  </label>
+  <input id="hba1c" type="number" step="0.1" />
+</div>
+<div class="form-group">
+  <label>Serum Albumin (g/dL):
+    <span class="tooltip" title="Normal: 3.4–5.4 g/dL">?</span>
+  </label>
+  <input id="albumin" type="number" step="0.1" />
+</div>
+<div class="form-group">
+  <label>Serum Creatinine (mg/dL):
+    <span class="tooltip" title="Normal: 0.6–1.3 mg/dL">?</span>
+  </label>
+  <input id="scr" type="number" step="0.1" />
+</div>
+<div class="form-group">
+  <label>eGFR:
+    <span class="tooltip" title=">90 = Normal, <60 = Low kidney function">?</span>
+  </label>
+  <input id="egfr" type="number" />
+</div>
     <button onclick="predictRisk()">Predict My Risk</button>
     <div class="result" id="result"></div>
     <div class="risk-bar" id="riskBar"><div class="marker" id="marker"></div></div>
