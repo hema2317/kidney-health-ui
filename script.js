@@ -35,13 +35,15 @@ async function connectToCGM() {
   try {
     const response = await fetch("https://kidney-health-api-2.onrender.com/get-hba1c");
     const result = await response.json();
+
     if (result.estimated_hba1c) {
       document.getElementById("hba1c").value = result.estimated_hba1c;
-      alert("✅ HbA1c auto-filled from CGM data!");
+      alert(`✅ HbA1c autofilled from CGM: ${result.estimated_hba1c}`);
     } else {
-      alert("⚠️ Connected to CGM, but no estimate found.");
+      alert("⚠️ CGM connected, but no HbA1c data found.");
     }
   } catch (err) {
-    alert("❌ Failed to connect to CGM or retrieve HbA1c.");
+    alert("❌ Could not connect to CGM or get HbA1c data.");
   }
 }
+
