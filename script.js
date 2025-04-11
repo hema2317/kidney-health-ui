@@ -6,7 +6,10 @@ async function predictRisk() {
   const egfr = parseFloat(document.getElementById("egfr").value);
 
   const resultBox = document.getElementById("result");
-  resultBox.textContent = "Predicting...";
+  const explanationBox = document.getElementById("explanation");
+  const plansBox = document.getElementById("plans");
+
+  resultBox.textContent = "🔄 Predicting...";
 
   try {
     const response = await fetch("https://kidney-health-api-2.onrender.com/predict", {
@@ -27,18 +30,32 @@ async function predictRisk() {
       risk === "Low" ? "green" :
       risk === "Moderate" ? "orange" :
       risk === "High" ? "red" : "#333";
+
+    explanationBox.innerHTML = `<strong>Why this result?</strong><br>${data.explanation}`;
+    plansBox.innerHTML = `
+      <h4>📌 Patient Plan:</h4>${data.patient_plan}<br>
+      <h4>📌 Doctor Plan:</h4>${data.doctor_plan}
+    `;
   } catch (error) {
     resultBox.textContent = "❌ Unable to predict. Please check input or server.";
     resultBox.style.color = "crimson";
+    explanationBox.innerHTML = "";
+    plansBox.innerHTML = "";
   }
 }
 
 async function connectToCGM() {
   try {
-    const response = await fetch("https://kidney-health-api-2.onrender.com/connect-cgm");
-    const url = await response.url;
-    window.location.href = url; // Redirect to Dexcom
-  } catch (err) {
-    alert("❌ Failed to connect to CGM. Please try again.");
+    const response = await fetch("https://kidney-health-api-2.onrender.com/get-hba1c");
+    const result = await response.json();
+
+    if (result.estimated_hba1c) {
+      document.getElementById("hba1c").value = result.estimated_hba1c;
+      alert("✅ HbA1c auto-filled from simulated CGM data!");
+    } else {
+      alert("⚠️ Could not estimate HbA1c.");
+    }
+  } catch (error) {
+    alert("❌ Error connecting to CGM.");
   }
 }
